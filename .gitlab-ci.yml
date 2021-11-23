@@ -1,0 +1,7 @@
+pytest:
+  image: python:3.9
+  before_script:
+    - python --version
+    - pip install .[examples] pytest
+  script:
+    - pytest -v tests/test.py
