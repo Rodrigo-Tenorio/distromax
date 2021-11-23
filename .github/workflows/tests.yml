@@ -31,4 +31,4 @@ jobs:
         python -m pip install .[examples]
     - name: Test with pytest
       run: |
-        pytest $GITHUB_WORKSPACE/tests/tests.py
+        pytest $GITHUB_WORKSPACE/tests/test.py
