@@ -1,8 +1,10 @@
 # distromax
 
+[![arXiv](https://img.shields.io/badge/arXiv-2111.12032-b31b1b.svg)](https://arxiv.org/abs/2111.12032)
+
 Empirically estimating the distribution of the loudest candidate from a gravitational-wave search
 
-This package implements the methods described in [Tenorio, Modafferi, Keitel, Sintes (2021)](https://dcc.ligo.org/LIGO-P2100277)
+This package implements the methods described in [Tenorio, Modafferi, Keitel, Sintes (2021)](https://arxiv.org/abs/2111.12032)
 to estimate the distribution of the loudest candidate from a search. 
 
 The actual implementation includes:
@@ -25,7 +27,7 @@ See the [examples](examples) for concrete applications of these classes.
 If `distromax` was useful for your work, we would appreciated if you cite both the
 software version DOI (TBA) and one or more of the following scientific papers:
 
-- Introduction of `distromax` and description of the method: [Tenorio, Modafferi, Keitel, Sintes, (2021)](https://dcc.ligo.org/LIGO-P2100277)
+- Introduction of `distromax` and description of the method: [Tenorio, Modafferi, Keitel, Sintes, (2021)](https://arxiv.org/abs/2111.12032)
 - Analytical limit of a Gamma random variable to a Gumbel distribution: 
 [A. Gasull, J. López-Salcedo, F. Utzet TEST volume 24, pages 714–733 (2015)](https://link.springer.com/article/10.1007%2Fs11749-015-0431-9)
 
