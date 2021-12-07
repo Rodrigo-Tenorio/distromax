@@ -26,7 +26,8 @@ See the [examples](examples) for concrete applications of these classes.
 ## Citing this work
 
 If `distromax` was useful for your work, we would appreciated if you cite both the
-software version DOI (TBA) and one or more of the following scientific papers:
+software version DOI under [Zenodo](https://doi.org/10.5281/zenodo.5763765) 
+and one or more of the following scientific papers:
 
 - Introduction of `distromax` and description of the method: [Tenorio, Modafferi, Keitel, Sintes, (2021)](https://arxiv.org/abs/2111.12032)
 - Analytical limit of a Gamma random variable to a Gumbel distribution: 
