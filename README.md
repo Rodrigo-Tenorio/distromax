@@ -1,6 +1,8 @@
 # distromax
 
 [![arXiv](https://img.shields.io/badge/arXiv-2111.12032-b31b1b.svg)](https://arxiv.org/abs/2111.12032)
+[![DOI](https://zenodo.org/badge/428293757.svg)](https://zenodo.org/badge/latestdoi/428293757)
+
 
 Empirically estimating the distribution of the loudest candidate from a gravitational-wave search
 
