@@ -25,13 +25,31 @@ See the [examples](examples) for concrete applications of these classes.
 
 ## Citing this work
 
-If `distromax` was useful for your work, we would appreciated if you cite both the
+If `distromax` was useful for your work, we would appreciate if you cite both the
 software version DOI under [Zenodo](https://doi.org/10.5281/zenodo.5763765) 
 and one or more of the following scientific papers:
 
 - Introduction of `distromax` and description of the method: [Tenorio, Modafferi, Keitel, Sintes, (2021)](https://arxiv.org/abs/2111.12032)
 - Analytical limit of a Gamma random variable to a Gumbel distribution: 
 [A. Gasull, J. López-Salcedo, F. Utzet TEST volume 24, pages 714–733 (2015)](https://link.springer.com/article/10.1007%2Fs11749-015-0431-9)
+
+Here is a better-formatted bibtex entry for the version-independent Zenodo:
+```
+@misc{distromax,
+  author       = {Tenorio, Rodrigo and
+                  Modafferi, Luana M. and
+                  Keitel, David and
+                  Sintes, Alicia M.},
+  title        = {distromax: Empirically estimating the distribution of the loudest candidate from a gravitational-wave search},
+  month        = dec,
+  year         = 2021,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.5763765},
+  url          = {https://doi.org/10.5281/zenodo.5763765},
+  note         = {\url{https://doi.org/10.5281/zenodo.5763765}}
+}
+```
+For individual version DOIs, see the right sidebar at [Zenodo](https://doi.org/10.5281/zenodo.5763765)
 
 ## How to install
 
