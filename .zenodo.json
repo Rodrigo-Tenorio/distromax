@@ -1,0 +1,36 @@
+{
+  "creators": [
+    {
+      "affiliation": "Universitat de les Illes Balears",
+      "name": "Tenorio, Rodrigo",
+      "orcid": "0000-0002-3582-2587"
+    },
+    {
+      "affiliation": "Universitat de les Illes Balears",
+      "name": "Modafferi, Luana M.",
+      "orcid": "0000-0002-3422-6986"
+    },
+    {
+      "affiliation": "Universitat de les Illes Balears",
+      "name": "Keitel, David",
+      "orcid": "0000-0002-2824-626X"
+    },
+      "affiliation": "Universitat de les Illes Balears",
+      "name": "Sintes, Alicia M.",
+      "orcid": "0000-0001-9050-7515"
+    }
+  ],
+  "keywords": [
+    "astrophysics",
+    "data analysis",
+    "gravity",
+    "gravitational waves",
+    "python3",
+    "ligo",
+    "virgo"
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "upload_type": "software",
+  "language": "eng"
+}
