@@ -1,7 +1,6 @@
 name: Publish Python package
 
 on:
-  push:
   release:
     types: [published]
 
