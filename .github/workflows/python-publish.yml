@@ -1,0 +1,31 @@
+name: Publish Python package
+
+on:
+  push:
+  release:
+    types: [published]
+
+env:
+  python_versions: 
+jobs:
+
+  run-pytest:
+    # FIXME: This part will have to be updated whenever github allows
+    # for dynamic name resolution at both repo (Rodrigo-Tenorio/distromax)
+    # and refenrec (master) level.
+    uses: Rodrigo-Tenorio/distromax/.github/workflows/run-pytest.yml@master
+    with:
+      python_version: "[\"3.8\", \"3.9\"]"
+
+
+  publish-pypi:
+    # FIXME: This part will have to be updated whenever github allows
+    # for dynamic name resolution at both repo (Rodrigo-Tenorio/distromax)
+    # and refenrec (master) level.
+    needs: run-pytest
+    uses: Rodrigo-Tenorio/distromax/.github/workflows/publish-pypi.yml@master
+    with:
+      python_version: "[\"3.9\"]"
+    secrets:
+      TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
