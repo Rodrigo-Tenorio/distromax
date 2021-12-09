@@ -30,7 +30,7 @@ def test_AnalyticalGammaToGumbel():
     possible_failures = [{"dofs": 1, "shape": 1}, {"shape": 1, "scale": 1, "rate": 1}, {}]
     for input_values in possible_failures:
         logging.info(f"Testing ValueError with {input_values}")
-        with pytest.raises(ValueError):
+        with not pytest.raises(ValueError):
             distromax.analytical.AnalyticalGammaToGumbel(**input_values)
 
 
