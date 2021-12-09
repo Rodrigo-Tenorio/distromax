@@ -2,6 +2,8 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2111.12032-b31b1b.svg)](https://arxiv.org/abs/2111.12032)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5763765.svg)](https://doi.org/10.5281/zenodo.5763765)
+[![Integration Tests](https://github.com/Rodrigo-Tenorio/distromax/actions/workflows/tests.yml/badge.svg)](https://github.com/Rodrigo-Tenorio/distromax/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/distromax.svg)](https://badge.fury.io/py/distromax)
 
 Empirically estimating the distribution of the loudest candidate from a gravitational-wave search
 
@@ -57,17 +59,25 @@ Please, make sure you are running on a
 [virtual environment](https://docs.python.org/3/library/venv.html) to avoid
 any conflicts with system libraries.
 
-The simplest way (as of now) is to clone this repo with `git clone` and install using `pip`:
+The simplest way is to install `distromax` from [PyPI](https://pypi.org/project/distromax/) using `pip`:
+```
+pip install distromax
+```
+
+To install directly from source, clone this repo with `git clone` and install using `pip`
 ```
 git clone https://github.com/Rodrigo-Tenorio/distromax.git
 cd distromax
 pip install .
 ```
 
-Support for installations from PyPI and conda-forge will be ready in a few.
+Support for installations from conda-forge will be ready in a few.
+
+
+## Troubleshooting
 
 In some conservative systems the default `setuptools` may not be the latest version and
-produce an erorr message such as
+installing from source may produce an erorr message such as
 ```
 ERROR: setuptools==44.1.1 is used in combination with setuptools_scm>=6.x
 
