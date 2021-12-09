@@ -2,6 +2,8 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2111.12032-b31b1b.svg)](https://arxiv.org/abs/2111.12032)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5763765.svg)](https://doi.org/10.5281/zenodo.5763765)
+[![Integration Tests](https://github.com/Rodrigo-Tenorio/distromax/actions/workflows/tests.yml/badge.svg)](https://github.com/Rodrigo-Tenorio/distromax/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/distromax.svg)](https://badge.fury.io/py/distromax)
 
 Empirically estimating the distribution of the loudest candidate from a gravitational-wave search
 
