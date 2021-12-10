@@ -45,7 +45,7 @@ setup(
     project_urls={
         "Issue tracker": "https://github.com/Rodrigo-Tenorio/distromax/issues",
     },
-    python_requires=">=3.7.0, <3.10",
+    python_requires=">=3.7.0",
     url="https://github.com/Rodrigo-Tenorio/distromax",
     version=versioneer.get_version(),
 )
