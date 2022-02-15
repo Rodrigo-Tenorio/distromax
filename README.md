@@ -37,7 +37,8 @@ If `distromax` was useful for your work, we would appreciate if you cite both th
 software version DOI under [Zenodo](https://doi.org/10.5281/zenodo.5763765) 
 and one or more of the following scientific papers:
 
-- Introduction of `distromax` and description of the method: [Tenorio, Modafferi, Keitel, Sintes, (2021)](https://arxiv.org/abs/2111.12032)
+- Introduction of `distromax` and description of the method: [Tenorio, Modafferi, Keitel, Sintes, (2021)](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.105.044029) 
+  ([inspire](https://inspirehep.net/literature/1974174) / [nasa](https://ui.adsabs.harvard.edu/abs/2021arXiv211112032T/abstract))
 - Analytical limit of a Gamma random variable to a Gumbel distribution: 
 [A. Gasull, J. López-Salcedo, F. Utzet TEST volume 24, pages 714–733 (2015)](https://link.springer.com/article/10.1007%2Fs11749-015-0431-9)
 
