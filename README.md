@@ -1,3 +1,7 @@
+<p align="center">
+<img width = 350 src = ./logo/distromax_logo.png />
+</p>
+
 # distromax
 
 [![arXiv](https://img.shields.io/badge/arXiv-2111.12032-b31b1b.svg)](https://arxiv.org/abs/2111.12032)
