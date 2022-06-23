@@ -1,2 +1,4 @@
 include versioneer.py
 include distromax/_version.py
+recursive-include examples/ *.py
+recursive-include tests/ *.py
