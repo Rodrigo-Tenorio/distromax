@@ -1,7 +1,6 @@
 import glob
 import logging
 import os
-import subprocess
 import sys
 from pathlib import Path
 
@@ -70,7 +69,10 @@ def test_BatchMaxGumbelNotchingOutliers():
     [pytest.param(ex, id=ex.name) for ex in EXAMPLES]
 )
 def test_Examples(example):
-    subprocess.run([sys.executable, "-s", str(example)])
+    # read the example script
+    code = compile(example.read_text(), str(example), "exec")
+    # run it using this Python process
+    exec(code, globals())
 
 
 if __name__ == "__main__":
