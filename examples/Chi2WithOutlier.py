@@ -9,7 +9,6 @@ from scipy.signal import windows
 
 import distromax 
 
-plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 22
 
