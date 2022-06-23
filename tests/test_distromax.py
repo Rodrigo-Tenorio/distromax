@@ -1,8 +1,8 @@
 import glob
 import logging
 import os
-import subprocess
 import sys
+from pathlib import Path
 
 import numpy as np
 from scipy import stats
@@ -10,6 +10,9 @@ from scipy import stats
 import distromax
 
 import pytest
+
+HERE = Path(__file__).parent
+EXAMPLES = (HERE.parent / "examples").glob("*.py")
 
 ground_truth_gumbel = stats.gumbel_r(1, 1)
 
@@ -61,13 +64,15 @@ def test_BatchMaxGumbelNotchingOutliers():
     test_BatchMaxGumbel(fitting_class=fitting_class, fitting_class_kwargs=fitting_class_kwargs)
 
 
-def test_Examples():
-    # Basic test to check nothing is not broken
-    examples_folder = os.path.join(sys.path[0], "../examples/*.py")
-    logging.info(f"Example's pattern: {examples_folder}")
-    for example in glob.glob(examples_folder):
-        logging.info(f"Running example {os.path.basename(example)}")
-        subprocess.run(["python", "-s", example])
+@pytest.mark.parametrize(
+    "example",
+    [pytest.param(ex, id=ex.name) for ex in EXAMPLES]
+)
+def test_Examples(example):
+    # read the example script
+    code = compile(example.read_text(), str(example), "exec")
+    # run it using this Python process
+    exec(code, globals())
 
 
 if __name__ == "__main__":
