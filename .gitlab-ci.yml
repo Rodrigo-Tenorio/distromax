@@ -4,4 +4,4 @@ pytest:
     - python --version
     - pip install .[examples] pytest
   script:
-    - pytest -v tests/test.py
+    - pytest -v tests/
