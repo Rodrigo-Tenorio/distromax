@@ -1,15 +1,30 @@
-name: integration_tests
+name: Integration tests
 
 on:
   push:
   pull_request:
 
 jobs:
+  pytest:
 
-  run-pytest:
-    # FIXME: This part will have to be updated whenever github allows
-    # for dynamic name resolution at both repo (Rodrigo-Tenorio/distromax)
-    # and refenrec (master) level.
-    uses: Rodrigo-Tenorio/distromax/.github/workflows/run-pytest.yml@master
-    with:
-      python_version: "[\"3.8\", \"3.9\"]"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - 3.8
+          - 3.9
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pytest
+        python -m pip install .[examples]
+    - name: Test with pytest
+      run: |
+        python -m pytest ./tests/
