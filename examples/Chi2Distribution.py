@@ -8,7 +8,6 @@ from scipy import stats
 
 import distromax 
 
-plt.rcParams["text.usetex"] = True
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 22
 
@@ -59,7 +58,7 @@ ax.plot(data, 'o', rasterized=True, color="slateblue",
 loudest_mean = bmg.propagated_gumbel.mean()
 loudest_credible_interval = bmg.propagated_gumbel.interval(0.95)
 ax.axhline(loudest_mean, color="red", ls="-", label="Expected loudest candidate")
-ax.axhspan(*loudest_credible_interval, color="red", alpha=0.3, label=r"95\% Credibility")
+ax.axhspan(*loudest_credible_interval, color="red", alpha=0.3, label=r"95% Credibility")
 
 ax.legend(loc="lower right")
 
