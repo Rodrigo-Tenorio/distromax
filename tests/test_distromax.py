@@ -11,6 +11,8 @@ import distromax
 
 import pytest
 
+from utils_for_testing import is_flaky
+
 HERE = Path(__file__).parent
 EXAMPLES = (HERE.parent / "examples").glob("*.py")
 
@@ -36,7 +38,7 @@ def test_AnalyticalGammaToGumbel():
         with pytest.raises(ValueError):
             distromax.analytical.AnalyticalGammaToGumbel(**input_values)
 
-
+@pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
 def test_BatchMaxGumbel(samples=None, fitting_class=None, fitting_class_kwargs=None):
 
     samples = samples if samples is not None else ground_truth_gumbel.rvs(size=(100000, 2))

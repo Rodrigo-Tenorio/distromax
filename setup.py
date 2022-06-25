@@ -27,7 +27,7 @@ setup(
         "examples": [
             "matplotlib",
         ],
-        "tests": ["pytest"],
+        "tests": ["pytest", "flaky"],
     },
     install_requires=[
         "numpy",
