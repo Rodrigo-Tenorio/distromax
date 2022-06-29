@@ -11,13 +11,13 @@ import distromax
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 22
 
-""""
-Example 1: $\chi^2$ distribution
+r""""
+# Example 1: :math:`\chi^2` distribution
  
-$\chi^2$ distributions fall under the domain of attraction of the Gumbel distribution 
+:math:`\chi^2` distributions fall under Gumbel distribution's domain of attraction
 and appear very frequently in gravitational wave data analysis.
  
-We generate a dataset of $\chi^2$ samples and apply `distromax` to estimate 
+We generate a dataset of :math:`\chi^2` samples and apply `distromax` to estimate 
 the probability distribution of the loudest candidate.
  
 The resulting batchmax distribution is compared to the theoretical distribution.
@@ -48,7 +48,7 @@ logging.info("Data successfully generated, starting to plot results")
 
 # Plot samples and 95% credible region of the loudest candidate
 fig, ax = plt.subplots(figsize=(16, 10))
-ax.set(xlabel="Sample index", ylabel="$\chi^2_{4}$-distributed detection statistic")
+ax.set(xlabel="Sample index", ylabel=r"$\chi^2_{4}$-distributed detection statistic")
 ax.grid()
 
 ax.plot(data, 'o', rasterized=True, color="slateblue",
@@ -68,7 +68,7 @@ logging.info("Plot of samples and expected maxima: Success!")
 # Plot batchmax samples and compare the obtained Gumbel distribution to the theoretical one
 fig, ax = plt.subplots(figsize=(16, 10))
 ax.grid()
-ax.set(xlabel="$\chi^2_{4}$-distributed detection statistic", 
+ax.set(xlabel=r"$\chi^2_{4}$-distributed detection statistic", 
        ylabel="PDF", yscale="linear")
 
 ax.hist(bmg.samples, density=True, histtype="step", ls="--",

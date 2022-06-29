@@ -12,20 +12,21 @@ import distromax
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 22
 
-""""
-Example 2: $\chi^2$ distribution with an outlier
+f""""
+Example 2: :math:`\chi^2` distribution with an outlier
 
 Similar setup as in Example 1, this time including an outlier in a narrow frequency band.
  
-We generate a dataset of $\chi^2$ samples and introduce an outlier as samples from a non-central
-chi2 distribution. Then we notch that band using the procedure outlined in Appendix B of [0]
+We generate a dataset of :math:`\chi^2` draws and introduce an outlier as 
+samples from a non-central chi2 distribution. 
+Then we notch that band using the procedure outlined in Appendix B of [0]
 and apply `distromax` to estimate the probability distribution of the loudest candidate.
 
 We compare the resulting distirbution (with and without notching) to the ground truth.
 
 The example is framed as a narrow band CW search in which the 2F statistic
-(chi-squared with four degrees of freedom in Gaussian noise) is used to evaluate a template 
-bank over (f0, f1) with a narrow-band outlier around a certain f0.
+(chi-squared with four degrees of freedom in Gaussian noise) is used to 
+evaluate a template bank over (f0, f1) with a narrow-band outlier around a certain f0.
 
 [0] R. Tenorio, L. M. Modafferi, D. Keitel, A. M. Sintes
 """
@@ -79,7 +80,7 @@ bmgno = distromax.BatchMaxGumbelNotchingOutliers(data, batch_size=batch_size)
 
 # Plot samples with outliers
 fig, ax = plt.subplots(figsize=(16, 10))
-ax.set(xlabel="$f_{0}$ [Hz]", ylabel="$2\mathcal{F}$", title="Notching outliers: Final iteration")
+ax.set(xlabel=r"$f_{0}$ [Hz]", ylabel=r"$2\mathcal{F}$", title="Notching outliers: Final iteration")
 ax.grid()
 
 bg_mask = np.in1d(data[:, -1], bmgno.samples)
@@ -89,10 +90,10 @@ ax.plot(data[~bg_mask, 0], data[~bg_mask, -1], '.', color="aqua", rasterized=Tru
         alpha=0.4, label="Notched samples", markerfacecolor="none")
 
 ax.plot(bmgno.f0, bmgno.max_at_f0, "d", color="orange", 
-        label="Max per $f_{0}$", markerfacecolor="none")
+        label=r"Max per $f_{0}$", markerfacecolor="none")
 mask = bmgno.max_at_f0 > bmgno.threshold
 ax.plot(bmgno.f0[mask], bmgno.max_at_f0[mask], "x", color="red", 
-        label="Notched $f_0$ bins in this iteration", markerfacecolor="none")
+        label=r"Notched $f_0$ bins in this iteration", markerfacecolor="none")
 for f0_bin, max_2F in zip(bmgno.f0[mask], bmgno.max_at_f0[mask]):
     ax.vlines(f0_bin, ymin=-1, ymax=max_2F, color="red", zorder=10)
 
@@ -107,7 +108,7 @@ logging.info("Plot of samples: Success!")
 # Plot histogram of samples with and withouth outlier
 fig, ax = plt.subplots(figsize=(16, 10))
 ax.grid()
-ax.set(xlabel="$2\mathcal{F}$", ylabel="PDF", yscale="log")
+ax.set(xlabel=r"$2\mathcal{F}$", ylabel="PDF", yscale="log")
 ax.hist(raw_twoF, density=True, histtype="step", ls="--",
         bins="auto", color="black", label="Ground truth");
 ax.hist(outlier_twoF, density=True, histtype="step",
@@ -131,7 +132,7 @@ raw_max_out_gumbel = stats.gumbel_r(*stats.gumbel_r.fit(raw_max_out))
 # Plot batchmax distributions
 fig, ax = plt.subplots(figsize=(16, 10))
 ax.grid()
-ax.set(xlabel="Max $2\mathcal{F}$", ylabel="PDF")
+ax.set(xlabel=r"Max $2\mathcal{F}$", ylabel="PDF")
 ax.hist(raw_max, density=True, histtype="step", bins="auto", ls="--",
         color="black", label=r"Ground truth ({:.3f}, {:.3f})".format(*raw_max_gumbel.args))
 ax.hist(raw_max_out, density=True, histtype="step", bins="auto",
