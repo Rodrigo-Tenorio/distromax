@@ -1,5 +1,5 @@
+from itertools import product
 import glob
-import logging
 import os
 import sys
 from pathlib import Path
@@ -16,42 +16,56 @@ from utils_for_testing import is_flaky
 HERE = Path(__file__).parent
 EXAMPLES = (HERE.parent / "examples").glob("*.py")
 
-ground_truth_gumbel = stats.gumbel_r(1, 1)
 
-def test_AnalyticalGammaToGumbel():
-
-    possible_inputs = [{"dofs": 4.}, {"shape": 2., "scale":2.}, {"shape":2., "rate":0.5}]
-    for input_values in possible_inputs:
-        logging.info(f"Testing input {input_values}")
-        analytical = distromax.analytical.AnalyticalGammaToGumbel(**input_values)
-        assert analytical.shape == 2.
-        assert analytical.scale == 2.
-
-        for method in ["get_gumbel_loc_scale", "get_gumbel_mean_std"]:
-            logging.info(f"Running {method}")
-            getattr(analytical, method)(n=1000)
+@pytest.fixture(params=product([1, 10, 50], [1, 5]))
+def ground_truth_gumbel(request):
+    return stats.gumbel_r(*request.param)
 
 
-    possible_failures = [{"dofs": 1, "shape": 1}, {"shape": 1, "scale": 1, "rate": 1}, {}]
-    for input_values in possible_failures:
-        logging.info(f"Testing ValueError with {input_values}")
-        with pytest.raises(ValueError):
-            distromax.analytical.AnalyticalGammaToGumbel(**input_values)
+@pytest.mark.parametrize(
+    "distribution_parameters",
+    [
+        {"dofs": 4.0},
+        {"shape": 2.0, "scale": 2.0},
+        {"shape": 2.0, "rate": 0.5},
+    ],
+)
+@pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
+def test_AnalyticalGammaToGumbel(distribution_parameters):
+    analytical = distromax.AnalyticalGammaToGumbel(**distribution_parameters)
+    assert analytical.shape == 2.0
+    assert analytical.scale == 2.0
+
+    for method in ["get_gumbel_loc_scale", "get_gumbel_mean_std"]:
+        getattr(analytical, method)(n=1000)
+
+
+@pytest.mark.parametrize(
+    "failing_parameters",
+    [
+        {"dofs": 1, "shape": 1},
+        {"shape": 1, "scale": 1, "rate": 1},
+        {},
+    ],
+)
+def test_AnalyticalGammaToGumbel_failure(failing_parameters):
+    with pytest.raises(ValueError):
+        distromax.AnalyticalGammaToGumbel(**failing_parameters)
+
 
 @pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
-def test_BatchMaxGumbel(samples=None, fitting_class=None, fitting_class_kwargs=None):
-
-    samples = samples if samples is not None else ground_truth_gumbel.rvs(size=(100000, 2))
-    fitting_class = fitting_class or distromax.BatchMaxGumbel
-    fitting_class_kwargs = fitting_class_kwargs or {}
-
-    # Test fit with and without num_batches
-    for batch_size in [None, 1]:
-        fg = fitting_class(samples, batch_size=batch_size, **fitting_class_kwargs)
-        for i in range(2):
-            np.testing.assert_allclose(
-                fg.gumbel.args[i], ground_truth_gumbel.args[i], rtol=1e-2
-            )
+@pytest.mark.parametrize("batch_size", [None, 1])
+@pytest.mark.parame
+def test_BatchMaxGumbel_gumbel_samples(ground_truth_gumbel, batch_size):
+    fg = distromax.BatchMaxGumbel(
+        ground_truth_gumbel.rvs(size=1000000), batch_size=batch_size
+    )
+    for i in range(2):
+        np.testing.assert_allclose(
+            fg.gumbel.args[i],
+            ground_truth_gumbel.args[i],
+            rtol=2e-2
+        )
 
     # Test batch propagation parameters
     num_batches = 1000
@@ -59,24 +73,36 @@ def test_BatchMaxGumbel(samples=None, fitting_class=None, fitting_class_kwargs=N
     prop_loc, prop_scale = fg.max_propagation(num_batches)
     np.testing.assert_allclose(prop_loc, loc + scale * np.log(num_batches))
 
-def test_BatchMaxGumbelNotchingOutliers():
-    # Basic test to check nothing is not broken
-    fitting_class = distromax.BatchMaxGumbelNotchingOutliers
-    fitting_class_kwargs = {"stopping_quantile": 1.}
-    test_BatchMaxGumbel(fitting_class=fitting_class, fitting_class_kwargs=fitting_class_kwargs)
+
+@pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
+@pytest.mark.parametrize("batch_size", [None, 1])
+def test_BatchMaxGumbelNotchingOutliers_gumbel_samples(ground_truth_gumbel, batch_size):
+    num_samples = 1000000
+
+    fg = distromax.BatchMaxGumbelNotchingOutliers(
+        np.vstack([np.arange(num_samples), ground_truth_gumbel.rvs(size=num_samples)]).T,
+        batch_size=batch_size,
+        stopping_quantile=1.0,
+    )
+    for i in range(2):
+        np.testing.assert_allclose(
+            fg.gumbel.args[i],
+            ground_truth_gumbel.args[i],
+            rtol=2e-2,
+        )
+
+    # Test batch propagation parameters
+    num_batches = 1000
+    loc, scale = fg.gumbel.args
+    prop_loc, prop_scale = fg.max_propagation(num_batches)
+    np.testing.assert_allclose(prop_loc, loc + scale * np.log(num_batches))
 
 
-@pytest.mark.parametrize(
-    "example",
-    [pytest.param(ex, id=ex.name) for ex in EXAMPLES]
-)
-def test_Examples(example):
-    # read the example script
-    code = compile(example.read_text(), str(example), "exec")
-    # run it using this Python process
-    exec(code, globals())
-
-
-if __name__ == "__main__":
-    args = sys.argv[1:] or ["-v", "-rs"]
-    sys.exit(pytest.main(args=[__file__] + args))
+#
+# @pytest.mark.parametrize("example", [pytest.param(ex, id=ex.name) for ex in EXAMPLES])
+# @pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
+# def test_Examples(example):
+#    # read the example script
+#    code = compile(example.read_text(), str(example), "exec")
+#    # run it using this Python process
+#    exec(code, globals())
