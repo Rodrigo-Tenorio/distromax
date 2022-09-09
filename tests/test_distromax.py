@@ -1,8 +1,4 @@
 from itertools import product
-import glob
-import os
-import sys
-from pathlib import Path
 
 import numpy as np
 from scipy import stats
@@ -12,10 +8,6 @@ import distromax
 import pytest
 
 from utils_for_testing import is_flaky
-
-HERE = Path(__file__).parent
-EXAMPLES = (HERE.parent / "examples").glob("*.py")
-
 
 @pytest.fixture(params=product([1, 10, 50], [1, 5]))
 def ground_truth_gumbel(request):
@@ -96,13 +88,3 @@ def test_BatchMaxGumbelNotchingOutliers_gumbel_samples(ground_truth_gumbel, batc
     loc, scale = fg.gumbel.args
     prop_loc, prop_scale = fg.max_propagation(num_batches)
     np.testing.assert_allclose(prop_loc, loc + scale * np.log(num_batches))
-
-
-#
-# @pytest.mark.parametrize("example", [pytest.param(ex, id=ex.name) for ex in EXAMPLES])
-# @pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
-# def test_Examples(example):
-#    # read the example script
-#    code = compile(example.read_text(), str(example), "exec")
-#    # run it using this Python process
-#    exec(code, globals())
