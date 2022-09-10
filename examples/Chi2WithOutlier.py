@@ -12,6 +12,8 @@ import distromax
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 22
 
+logger = distromax.set_up_logger()
+
 f""""
 Example 2: :math:`\chi^2` distribution with an outlier
 
@@ -35,8 +37,8 @@ basename = os.path.basename(sys.argv[0])[:-3]
 outdir = os.path.join(sys.path[0], basename)
 os.makedirs(outdir, exist_ok=True)
 
-logging.info(f"Running example {basename}")
-logging.info(f"Output will be saved into {outdir}")
+logger.info(f"Running example {basename}")
+logger.info(f"Output will be saved into {outdir}")
 
 # Create samples [template bank over (f0, f1) to include an outlier].
 points = 1000
@@ -103,7 +105,7 @@ ax.axhline(bmgno.threshold, color="gray", label="Threshold")
 ax.legend()
 
 fig.savefig(os.path.join(outdir, "Samples.pdf"), bbox_inches="tight")
-logging.info("Plot of samples: Success!")
+logger.info("Plot of samples: Success!")
 
 # Plot histogram of samples with and withouth outlier
 fig, ax = plt.subplots(figsize=(16, 10))
@@ -121,7 +123,7 @@ ax.axvline(bmgno.threshold, color="gray", label="Threshold")
 ax.legend(loc="upper right")
 
 fig.savefig(os.path.join(outdir, "HistogramSamples.pdf"), bbox_inches="tight")
-logging.info("Plot of sample histograms: Success!")
+logger.info("Plot of sample histograms: Success!")
 
 raw_max = np.random.permutation(raw_twoF).reshape((-1, batch_size)).max(axis=1)
 raw_max_gumbel = stats.gumbel_r(*stats.gumbel_r.fit(raw_max))
@@ -146,7 +148,7 @@ ax.axvline(bmgno.threshold, color="gray", label="Threshold")
 ax.legend(loc="upper right")
 
 fig.savefig(os.path.join(outdir, "BatchmaxSamples.pdf"), bbox_inches="tight")
-logging.info("Plot of sample histograms: Success!")
+logger.info("Plot of sample histograms: Success!")
 
 mean_gt = raw_max_gumbel.args[0] + np.euler_gamma * raw_max_gumbel.args[1] 
 mean_distro = bmgno.gumbel.args[0] + np.euler_gamma * bmgno.gumbel.args[1] 
@@ -164,10 +166,9 @@ ax.plot([0, 1], [0, 1], color="gray", ls="--")
 
 ax.legend()
 fig.savefig(os.path.join(outdir, "CDFComparison.pdf"), bbox_inches="tight")
-logging.info("Plot CDF comparison: Success!")
+logger.info("Plot CDF comparison: Success!")
 
-logging.info("GT vs. distromax relative difference:")
-logging.info("    Location parameter: {:.2f}%".format(100 * (bmgno.gumbel.args[0]/raw_max_gumbel.args[0] - 1)))
-logging.info("    Scale parameter: {:.2f}%".format(100 * (bmgno.gumbel.args[1]/raw_max_gumbel.args[1] - 1)))
-logging.info("    Mean: {:.2f}%".format(100 * (mean_distro/mean_gt - 1)))
+logger.info("GT vs. distromax relative difference:")
+logger.info("    Location parameter: {:.2f}%".format(100 * (bmgno.gumbel.args[0]/raw_max_gumbel.args[0] - 1)))
+logger.info("    Scale parameter: {:.2f}%".format(100 * (bmgno.gumbel.args[1]/raw_max_gumbel.args[1] - 1)))
 
