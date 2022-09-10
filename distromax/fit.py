@@ -4,6 +4,7 @@ from scipy import signal, stats
 from skimage.filters import threshold_minimum
 from tqdm import tqdm, trange
 
+logger = logging.getLogger(__name__)
 
 class BatchMaxGumbel:
     def __init__(self, samples, batch_size=None, shuffle=True, shuffle_seed=None):
@@ -39,13 +40,13 @@ class BatchMaxGumbel:
                 "Please, slice out samples before using this class"
             )
 
-        logging.info("Starting distromax...")
+        logger.info("Starting distromax...")
         self.set_samples(samples)
-        logging.info("Samples successfully set")
+        logger.info("Samples successfully set")
         self.batch_max_samples(batch_size, shuffle, shuffle_seed)
-        logging.info("Batchmax samples successfully retrieved")
+        logger.info("Batchmax samples successfully retrieved")
         self.fit()
-        logging.info("Gumbel distribution successfully fitted")
+        logger.info("Gumbel distribution successfully fitted")
 
     def set_samples(self, samples):
 
@@ -140,7 +141,7 @@ class BatchMaxGumbelWithCleaning(BatchMaxGumbel):
             and (not callable(threshold))
             and (num_iterations > 1)
         ):
-            logging.info(
+            logger.info(
                 "Threshold was manually set to a value but `num_iterations > 1`. "
                 "Setting num_iterations to 1."
             )

@@ -3,6 +3,7 @@ import logging
 import numpy as np
 from scipy.special import gamma
 
+logger = logging.getLogger(__name__)
 
 class AnalyticalGammaToGumbel:
     """
@@ -103,6 +104,7 @@ class AnalyticalGammaToGumbel:
         gamma_shape = gamma(self.shape)
 
         if improved:
+            logger.debug("Computing ``improved'' location and scale parameters...")
             logn_gamma = np.log(n / gamma_shape)
             shape_m1 = self.shape - 1
             Bn = logn_gamma + shape_m1 * np.log(shape_m1)
@@ -118,6 +120,7 @@ class AnalyticalGammaToGumbel:
             )
 
         else:
+            logger.debug("Computing standard location and scale parameters...")
             loc = self.scale * (
                 logn + (self.shape - 1) * np.log(logn) + np.log(gamma_shape)
             )
