@@ -47,7 +47,6 @@ def test_AnalyticalGammaToGumbel_failure(failing_parameters):
 
 @pytest.mark.flaky(max_runs=3, min_passes=1, rerun_filter=is_flaky)
 @pytest.mark.parametrize("batch_size", [None, 1])
-@pytest.mark.parame
 def test_BatchMaxGumbel_gumbel_samples(ground_truth_gumbel, batch_size):
     fg = distromax.BatchMaxGumbel(
         ground_truth_gumbel.rvs(size=1000000), batch_size=batch_size

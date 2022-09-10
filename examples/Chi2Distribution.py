@@ -11,6 +11,8 @@ import distromax
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.size"] = 22
 
+logger = distromax.set_up_logger()
+
 r""""
 # Example 1: :math:`\chi^2` distribution
  
@@ -27,8 +29,8 @@ basename = os.path.basename(sys.argv[0])[:-3]
 outdir = os.path.join(sys.path[0], basename)
 os.makedirs(outdir, exist_ok=True)
 
-logging.info(f"Running example {basename}")
-logging.info(f"Output will be saved into {outdir}")
+logger.info(f"Running example {basename}")
+logger.info(f"Output will be saved into {outdir}")
 
 # Create samples
 dofs = 4
@@ -44,7 +46,7 @@ bmg.max_propagation(num_batches=num_batches)
 # Compute theoretical parameters of the batchmax distribution
 th_loc, th_scale = distromax.analytical.AnalyticalGammaToGumbel(dofs=dofs).get_gumbel_loc_scale(batch_size)
 
-logging.info("Data successfully generated, starting to plot results")
+logger.info("Data successfully generated, starting to plot results")
 
 # Plot samples and 95% credible region of the loudest candidate
 fig, ax = plt.subplots(figsize=(16, 10))
@@ -63,7 +65,7 @@ ax.axhspan(*loudest_credible_interval, color="red", alpha=0.3, label=r"95% Credi
 ax.legend(loc="lower right")
 
 fig.savefig(os.path.join(outdir, "SamplesAndExpectedMax.pdf"), bbox_inches="tight")
-logging.info("Plot of samples and expected maxima: Success!")
+logger.info("Plot of samples and expected maxima: Success!")
 
 # Plot batchmax samples and compare the obtained Gumbel distribution to the theoretical one
 fig, ax = plt.subplots(figsize=(16, 10))
@@ -86,8 +88,8 @@ ax.plot(x, stats.gumbel_r(th_loc, th_scale).pdf(x), color="black", ls="--",
 ax.legend()
 
 fig.savefig(os.path.join(outdir, "BatchmaxAndTheoretical.pdf"), bbox_inches="tight")
-logging.info("Plot of batchmax distribution and comparison to theoretical: Success!")
+logger.info("Plot of batchmax distribution and comparison to theoretical: Success!")
 
-logging.info(f"Location relative error: {100 * (bmg.gumbel.args[0]/th_loc - 1):.2f} %")
-logging.info(f"Scale relative error: {100 * (bmg.gumbel.args[1]/th_scale - 1):.2f} %")
+logger.info(f"Location relative error: {100 * (bmg.gumbel.args[0]/th_loc - 1):.2f} %")
+logger.info(f"Scale relative error: {100 * (bmg.gumbel.args[1]/th_scale - 1):.2f} %")
 
