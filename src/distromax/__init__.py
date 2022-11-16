@@ -1,8 +1,7 @@
-from ._version import get_versions
+from importlib.metadata import version
 from .logging import _get_default_logger, set_up_logger
 
-__version__ = get_versions()["version"]
-del get_versions
+__version__ = version(__name__)
 
 try:
     logger = _get_default_logger()
