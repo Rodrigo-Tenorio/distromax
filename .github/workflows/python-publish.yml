@@ -14,7 +14,7 @@ jobs:
     # and refenrec (master) level.
     uses: Rodrigo-Tenorio/distromax/.github/workflows/run-pytest.yml@master
     with:
-      python_version: "[\"3.8\", \"3.9\"]"
+      python_version: "[\"3.8\", \"3.9\", \"3.10\"]"
 
 
   publish-pypi:
