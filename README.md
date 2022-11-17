@@ -1,9 +1,5 @@
-<p align="center">
-<img width = 350 src = ./logo/distromax_logo.png />
-</p>
-
 # distromax
-
+![](https://github.com/Rodrigo-Tenorio/distromax/blob/dc4ba4cf996fde5b51dc23a2611ce347e46c24c0/logo/distromax_logo.png)
 [![arXiv](https://img.shields.io/badge/arXiv-2111.12032-b31b1b.svg)](https://arxiv.org/abs/2111.12032)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5763765.svg)](https://doi.org/10.5281/zenodo.5763765)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/distromax/badges/license.svg)](https://anaconda.org/conda-forge/distromax)

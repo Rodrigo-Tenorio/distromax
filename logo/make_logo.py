@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 from scipy.stats import gumbel_r
 
-fig, ax = plt.subplots(figsize=(5, 5))
+fig, ax = plt.subplots(figsize=(1, 1), dpi=80)
 ax.set(aspect="equal", xlim=(0, 1), ylim=(0, 1))
 ax.get_xaxis().set_visible(False)
 ax.get_yaxis().set_visible(False)
@@ -29,6 +29,8 @@ ax.fill_between(x, 0, lg, color="slateblue")
 ax.plot(x, ug, color="orange")
 ax.fill_between(x, ug, 1, color="orange")
 
-ax.text(0.19, 0.5, "dMax", fontdict={"family": "serif", "size": 57})
+ax.text(0.1, 0.4, "dMax", fontdict={"family": "serif", "size": 15})
 
-fig.savefig("distromax_logo.png", dpi=300, bbox_inches="tight")
+plt.gca().set_axis_off()
+
+fig.savefig("distromax_logo.png", bbox_inches="tight", dpi=80, pad_inches=0)
