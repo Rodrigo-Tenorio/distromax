@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added 
 
+- Updated journal reference.
 - Added Package logo.
 - Renamed test scripts to ease pytest's discovery.
 - Cleaned up test suite.
