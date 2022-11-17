@@ -4,6 +4,11 @@ on:
   push:
   pull_request:
   workflow_call:
+    inputs:
+      python_version:
+        description: 'Stringified JSON object listing target Python versions'
+        required: true
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,10 +25,7 @@ jobs:
           - macOS
           - Ubuntu
           # - Windows
-        python-version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
+        python-version: ${{ fromJson(inputs.python_version) }}
     runs-on: ${{ matrix.os }}-latest
 
     steps:
