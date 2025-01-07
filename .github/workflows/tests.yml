@@ -3,21 +3,10 @@ name: Integration tests
 on:
   push:
   pull_request:
-  workflow_call:
-    inputs:
-      python_version:
-        description: 'Stringified JSON object listing target Python versions'
-        required: true
-        type: string
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   pytest:
-    name: Python ${{ matrix.python-version }} (${{ matrix.os }})
-
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
@@ -25,9 +14,9 @@ jobs:
           - macOS
           - Ubuntu
           # - Windows
-        python-version: ${{ fromJson(inputs.python_version) }}
-    runs-on: ${{ matrix.os }}-latest
-
+        python-major-version: [3]
+        python-minor-version: [9, 10, 11, 12, 13]
+    name: Python ${{ matrix.python-version }} sample
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -42,3 +31,4 @@ jobs:
     - name: Test with pytest
       run: |
         python -m pytest ./tests/
+
