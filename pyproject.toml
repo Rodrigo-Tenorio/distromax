@@ -1,5 +1,8 @@
 [build-system]
-requires = ["setuptools", "wheel", "setuptools_scm[toml]>=6.2"]
+requires = [
+    "setuptools", 
+    "setuptools_scm[toml]>=6.2"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -11,7 +14,10 @@ classifiers = [
     "Natural Language :: English",
     "Intended Audience :: Science/Research",
 ]
-description = "Empirically estimating the distribution of the loudest candidate from a gravitational-wave search"
+description = """
+Empirically estimating the distribution \
+of the loudest candidate from \ 
+a gravitational-wave search."""
 dependencies = [
     "numpy",
     "scipy",
@@ -20,13 +26,13 @@ dependencies = [
 ]
 license = {file = "LICENSE.md"}
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.9"
 
 dynamic = ["version"]
 
 [[projects.authors]]
 name = "Rodrigo Tenorio"
-author_email = "rodrigo.tenorio@ligo.org"
+author_email = "rodrigo.tenorio.marquez@gmail.com"
 
 [[projects.authors]]
 name = "Luana M. Modafferi"
@@ -39,7 +45,7 @@ name = "Alicia M. Sintes"
 
 [[projects.maintainers]]
 name = "Rodrigo Tenorio"
-email = "rodrigo.tenorio@ligo.org"
+email = "rodrigo.tenorio.marquez@gmail.com"
 
 [project.optional-dependencies]
 examples = ["matplotlib"]
@@ -49,15 +55,11 @@ tests = ["black", "flaky", "pytest"]
 Source = "https://github.com/Rodrigo-Tenorio/distromax"
 "Issue tracker" = "https://github.com/Rodrigo-Tenorio/distromax/issues"
 
-[tools.setuptools.dynamic]
-version = {attr = "distromax.__version__"}
-readme = {file = ["README.md"]}
+[tool.setuptools_scm]
 
-[tools.setuptools.packages.find]
+[tool.setuptools.packages.find]
 where = ["src"]
 include = ["distromax"]
-
-[tool.setuptools_scm]
 
 [tool.pytest.ini_options]
 log_cli = true
